@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
@@ -16,4 +17,6 @@ Route::prefix('v1/post')->middleware(['auth:sanctum'])->group(function () {
     Route::get('/{id}', [PostController::class,'show']);
     Route::post('/like/{postId}', [LikeController::class,'store']);
     Route::delete('/unlike/{postId}', [LikeController::class,'unlike']);
+    Route::post('/comment/{postId}', [CommentController::class,'store']);
+    Route::delete('/uncomment/{postId}', [CommentController::class,'destroy']);
 });

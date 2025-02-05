@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -39,9 +40,12 @@ class PostController extends Controller
         $post = Post::find($id);
 
         $like = Like::where('post_id', $post->id)->count();
+
+        $comment = Comment::with('user')->where('post_id', $post->id)->get();
         return response()->json([
             "post"=> $post,
-            "like" => $like
+            "like" => $like,
+            "comment" => $comment
         ]);
     }
 }
